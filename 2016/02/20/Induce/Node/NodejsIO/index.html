@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>原生JavaScript探索 | Ji Wen</title>
+  <title>Node.js异步式I/O与事件式编程 | Ji Wen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="自用笔记：本文属于自用笔记，不做详解，仅供参考。在此记录自己已理解并开始遵循的前端代码规范。What How Why">
+  <meta name="description" content="###异步式IO与事件式编程Node.js最大的特点就是异步式I/O（或者非阻塞I/O）与事件紧密结合的编程模式。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="原生JavaScript探索">
-<meta property="og:url" content="https://Ganjs.github.io/2016/01/15/Induce/JavaScript/NativeJS/index.html">
+<meta property="og:title" content="Node.js异步式I/O与事件式编程">
+<meta property="og:url" content="https://Ganjs.github.io/2016/02/20/Induce/Node/NodejsIO/index.html">
 <meta property="og:site_name" content="Ji Wen">
-<meta property="og:description" content="自用笔记：本文属于自用笔记，不做详解，仅供参考。在此记录自己已理解并开始遵循的前端代码规范。What How Why">
-<meta property="og:updated_time" content="2016-10-09T15:00:15.489Z">
+<meta property="og:description" content="###异步式IO与事件式编程Node.js最大的特点就是异步式I/O（或者非阻塞I/O）与事件紧密结合的编程模式。">
+<meta property="og:updated_time" content="2016-10-25T12:33:16.443Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="原生JavaScript探索">
-<meta name="twitter:description" content="自用笔记：本文属于自用笔记，不做详解，仅供参考。在此记录自己已理解并开始遵循的前端代码规范。What How Why">
+<meta name="twitter:title" content="Node.js异步式I/O与事件式编程">
+<meta name="twitter:description" content="###异步式IO与事件式编程Node.js最大的特点就是异步式I/O（或者非阻塞I/O）与事件紧密结合的编程模式。">
   
     <link rel="alternative" href="/atom.xml" title="Ji Wen" type="application/atom+xml">
   
@@ -252,11 +252,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-Induce/JavaScript/NativeJS" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Induce/Node/NodejsIO" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/15/Induce/JavaScript/NativeJS/" class="article-date">
-      <time datetime="2016-01-15T05:58:41.000Z" itemprop="datePublished">2016-01-15</time>
+      <a href="/2016/02/20/Induce/Node/NodejsIO/" class="article-date">
+      <time datetime="2016-02-20T10:29:00.000Z" itemprop="datePublished">2016-02-20</time>
 </a>
     </div>
   
@@ -269,7 +269,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      原生JavaScript探索
+      Node.js异步式I/O与事件式编程
     </h1>
   
 
@@ -278,13 +278,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/HTML/">HTML</a>
+    <a class="article-category-link" href="/categories/NodeJs/">NodeJs</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IO/">IO</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -294,43 +294,15 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　　<strong> 自用笔记：</strong>本文属于自用笔记，不做详解，仅供参考。在此记录自己已理解并开始遵循的前端代码规范。What How Why<br><a id="more"></a></p>
-<iframe width="100%" height="100%" src="http://luuman.github.io/Native-JS/"></iframe>
+        <p>###异步式IO与事件式编程<br>Node.js最大的特点就是异步式I/O（或者非阻塞I/O）与事件紧密结合的编程模式。<br><a id="more"></a><br>     这种模式与传统的同步I/O线程的编程思路有很大的不同，因为控制流很大程度上要考事件和回调函数来组织，一个逻辑要分拆为若干个单元</p>
+<pre><code>什么是阻塞（block）呢？线程在执行中如果遇到磁盘读写或网络通信（统称为 I/O 操作），通常要耗费较长的时间，这时操作系统会剥夺这个线程的 CPU 控制权，使其暂停执行，同时将资源让给其他的工作线程，这种线程调度方式称为 阻塞。当 I/O 操作完毕时，操作系统将这个线程的阻塞状态解除，恢复其对CPU的控制权，令其继续执行。这种 I/O 模式就是常的同步式 I/O（Synchronous I/O）或阻塞式 I/O （Blocking I/O）。
 
-<h2 id="Title炫舞"><a href="#Title炫舞" class="headerlink" title="Title炫舞"></a>Title炫舞</h2><p>为了实现Title的动态变化，使用document.title修改Title的内容。</p>
-<p>方案一：<br><a href="/Native-JS/Title">Demo</a><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 用户浏览其他页面 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="comment">// window 失去焦点，停止输出</span></div><div class="line">	<span class="keyword">var</span> Title = <span class="built_in">document</span>.title</div><div class="line">	<span class="built_in">window</span>.onblur=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	   <span class="built_in">document</span>.title=<span class="string">"对面的女孩看过来"</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">// window 每次获得焦点</span></div><div class="line">	<span class="built_in">window</span>.onfocus = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	    <span class="built_in">document</span>.title=Title;</div><div class="line">	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p><a href="https://www.bh-lay.com/blog/14e6e855585" target="_blank" rel="external">变态的标题</a></p>
-<p>方案二：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="built_in">document</span>.addEventListener(<span class="string">'visibilitychange'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	  <span class="built_in">document</span>.title = <span class="built_in">document</span>.hidden ? <span class="string">'出BUG了，快看！'</span>:<span class="string">'小剧客栈，剧中人的个人博客！'</span></div><div class="line">	&#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>方案三：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="built_in">document</span>.addEventListener(<span class="string">"keydown"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">a</span>) </span>&#123;</div><div class="line">		a = a || <span class="built_in">window</span>.event;</div><div class="line">		<span class="keyword">var</span> b = <span class="built_in">parseInt</span>(a.keyCode);</div><div class="line">		!a.ctrlKey || <span class="number">115</span> !== b &amp;&amp; <span class="number">83</span> !== b ? (<span class="number">123</span> === b || a.ctrlKey &amp;&amp; a.shiftKey &amp;&amp; <span class="number">73</span> === b || a.ctrlKey &amp;&amp; <span class="number">85</span> === b) &amp;&amp; (a.returnValue = !<span class="number">1</span>, a.preventDefault(), p()) : (a.returnValue = !<span class="number">1</span>, a.preventDefault(), p())</div><div class="line">	&#125;), <span class="built_in">document</span>.addEventListener(<span class="string">"contextmenu"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">a</span>) </span>&#123;</div><div class="line">		a = a || <span class="built_in">window</span>.event, a.returnValue = !<span class="number">1</span>, a.preventDefault()</div><div class="line">	&#125;, !<span class="number">1</span>), <span class="built_in">document</span>.addEventListener(<span class="string">"visibilitychange"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="built_in">document</span>.title = <span class="built_in">document</span>.hidden ? <span class="string">"看这里，看这里!"</span> : <span class="string">"世平阜康的博客"</span></div><div class="line">	&#125;)</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="keyword">var</span> r = <span class="string">"记得回来点单哦！ - 饿了么"</span>,</div><div class="line">	    n = <span class="built_in">document</span>.title;</div><div class="line">	angular.$(<span class="built_in">document</span>).on(<span class="string">"visibilitychange"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	    <span class="built_in">document</span>.title = <span class="string">"hidden"</span>===<span class="built_in">document</span>.visibilityState ? r : n</div><div class="line">	&#125;)</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-<h2 id="禁用右键"><a href="#禁用右键" class="headerlink" title="禁用右键"></a>禁用右键</h2><p><a href="/Native-JS/Prevent-Right-click">Demo</a></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="comment">// 禁用右键</span></div><div class="line">    <span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> (<span class="literal">false</span>);</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-<h2 id="禁用F12"><a href="#禁用F12" class="headerlink" title="禁用F12"></a>禁用F12</h2><blockquote>
-<p>禁用F12</p>
-</blockquote>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="comment">// 禁用F12</span></div><div class="line">	<span class="built_in">document</span>.onkeydown = <span class="built_in">document</span>.onkeyup = <span class="built_in">document</span>.onkeypress = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="keyword">if</span> (<span class="built_in">window</span>.event.keyCode == <span class="number">123</span>) &#123;</div><div class="line">			<span class="built_in">window</span>.event.returnValue = <span class="literal">false</span>;</div><div class="line">			<span class="keyword">return</span> (<span class="literal">false</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>使用F12，弹出提示，关闭网页</p>
-</blockquote>
-<p><a href="/Native-JS/Disable-F12">Demo</a></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="comment">// 禁用F12</span></div><div class="line">	<span class="built_in">document</span>.onkeydown = <span class="built_in">document</span>.onkeyup = <span class="built_in">document</span>.onkeypress = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="keyword">if</span> (<span class="built_in">window</span>.event.keyCode == <span class="number">123</span>) &#123;</div><div class="line">			<span class="built_in">document</span>.getElementById(<span class="string">"Popup"</span>).innerHTML=<span class="string">"&lt;div&gt;&lt;a href=#&gt;这个真的没什么好看的，还是看内容吧！&lt;/a&gt;&lt;/div&gt;"</span>;</div><div class="line">			<span class="comment">// 关闭窗口</span></div><div class="line">			setTimeout(b, <span class="number">2000</span>);</div><div class="line">			<span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</div><div class="line">				<span class="built_in">window</span>.close();</div><div class="line">			&#125;</div><div class="line">			<span class="built_in">window</span>.event.returnValue = <span class="literal">false</span>;</div><div class="line">			<span class="keyword">return</span> (<span class="literal">false</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-<h2 id="自定义复制内容"><a href="#自定义复制内容" class="headerlink" title="自定义复制内容"></a>自定义复制内容</h2><p>修改用户复制文档的内容，添加版权申明等信息。</p>
-<h2 id="计时器"><a href="#计时器" class="headerlink" title="计时器"></a>计时器</h2><blockquote>
-<p>Js 时间间隔计算(间隔天数)</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">GetDateDiff</span>(<span class="params">startDate,endDate</span>)  </span></div><div class="line">&#123;  </div><div class="line">    <span class="keyword">var</span> startTime = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">Date</span>.parse(startDate.replace(<span class="regexp">/-/g</span>,   <span class="string">"/"</span>))).getTime();     </div><div class="line">    <span class="keyword">var</span> endTime = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">Date</span>.parse(endDate.replace(<span class="regexp">/-/g</span>,   <span class="string">"/"</span>))).getTime();     </div><div class="line">    <span class="keyword">var</span> dates = <span class="built_in">Math</span>.abs((startTime - endTime))/(<span class="number">1000</span>*<span class="number">60</span>*<span class="number">60</span>*<span class="number">24</span>);     </div><div class="line">    <span class="keyword">return</span>  dates;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p> 计算网站运行的具体时间</p>
-</blockquote>
-<p>错误理解：没有计算12月份的，好吧，是我理解错误，就好像周期一样，没有7,0就是星期天。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">理解下时间的规则：</div><div class="line"></div><div class="line"><span class="built_in">document</span>.write(<span class="keyword">new</span> <span class="built_in">Date</span> + <span class="string">"&lt;br /&gt;"</span>);</div><div class="line">Fri Jan <span class="number">15</span> <span class="number">2016</span> <span class="number">14</span>:<span class="number">42</span>:<span class="number">36</span> GMT+<span class="number">0800</span> (中国标准时间)</div><div class="line"></div><div class="line"><span class="built_in">document</span>.write(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2016</span>, <span class="number">0</span>, <span class="number">12</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">0</span>) + <span class="string">"&lt;br /&gt;"</span>);</div><div class="line">Tue Jan <span class="number">12</span> <span class="number">2016</span> <span class="number">10</span>:<span class="number">00</span>:<span class="number">00</span> GMT+<span class="number">0800</span> (中国标准时间)</div><div class="line"></div><div class="line">设置几月的时候要减<span class="number">1</span>，<span class="number">0</span>代表一月。</div><div class="line"></div><div class="line"></div><div class="line"><span class="built_in">document</span>.write(<span class="built_in">Math</span>.floor(((<span class="keyword">new</span> <span class="built_in">Date</span>).getTime() - <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2015</span>, <span class="number">10</span>, <span class="number">25</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">0</span>).getTime()) / <span class="number">864e5</span>) + <span class="string">"&lt;br /&gt;"</span>)</div><div class="line"><span class="number">51</span></div><div class="line"></div><div class="line">年数</div><div class="line">c = b % <span class="number">31104e6</span>,</div><div class="line">月数</div><div class="line">d = c % <span class="number">2592e6</span>,</div><div class="line">天数</div><div class="line">e = d % <span class="number">864e5</span>,</div><div class="line">时间</div><div class="line">f = e % <span class="number">36e5</span>;</div></pre></td></tr></table></figure>
-<p><a href="/Resume/H1/">Demo</a></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> b = (<span class="keyword">new</span> <span class="built_in">Date</span>).getTime() - <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2015</span>, <span class="number">10</span>, <span class="number">25</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">0</span>).getTime(),</div><div class="line">		c = b % <span class="number">31104e6</span>,</div><div class="line">		d = c % <span class="number">2592e6</span>,</div><div class="line">		e = d % <span class="number">864e5</span>,</div><div class="line">		f = e % <span class="number">36e5</span>;</div><div class="line">	i = [<span class="built_in">Math</span>.floor(b / <span class="number">31104e6</span>), <span class="built_in">Math</span>.floor(c / <span class="number">2592e6</span>), <span class="built_in">Math</span>.floor(d / <span class="number">864e5</span>), <span class="built_in">Math</span>.floor(e / <span class="number">36e5</span>), <span class="built_in">Math</span>.floor(f / <span class="number">6e4</span>), <span class="built_in">Math</span>.floor(f % <span class="number">6e4</span> / <span class="number">1e3</span>)], h.each(<span class="function"><span class="keyword">function</span>(<span class="params">b, c</span>) </span>&#123;</div><div class="line">		a(c).css(&#123;</div><div class="line">			<span class="attr">backgroundPosition</span>: <span class="string">"0 "</span> + (<span class="number">-44</span> * i[b] + <span class="string">"px"</span>)</div><div class="line">		&#125;)</div><div class="line">	&#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="调用微博"><a href="#调用微博" class="headerlink" title="调用微博"></a>调用微博</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function() &#123;</div><div class="line">        <span class="comment">// 调用微博</span></div><div class="line">        var oDiv = document.createElement(<span class="string">"div"</span>);</div><div class="line">        oDiv.style.width = <span class="string">"384px"</span>;</div><div class="line">        oDiv.style.textAlign = <span class="string">"right"</span>;</div><div class="line">        oDiv.style.margin = <span class="string">"5px auto 10px"</span>;</div><div class="line">        oDiv.innerHTML = <span class="string">"&lt;iframe width=<span class="subst">\"</span>117<span class="subst">\"</span> height=<span class="subst">\"</span>24<span class="subst">\"</span> frameborder=<span class="subst">\"</span>0<span class="subst">\"</span> allowtransparency=<span class="subst">\"</span>true<span class="subst">\"</span> marginwidth=<span class="subst">\"</span>0<span class="subst">\"</span> marginheight=<span class="subst">\"</span>0<span class="subst">\"</span> scrolling=<span class="subst">\"</span>no<span class="subst">\"</span> border=<span class="subst">\"</span>0<span class="subst">\"</span> src=<span class="subst">\"</span>http://widget.weibo.com/relationship/followbutton.php?language=zh_cn&amp;width=136&amp;height=24&amp;uid=1844880617&amp;style=2&amp;btn=red&amp;dpc=1<span class="subst">\"</span>&gt;&lt;/iframe&gt;"</span>;</div><div class="line">        document.body.appendChild(oDiv)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<h2 id="JS数据归类提取"><a href="#JS数据归类提取" class="headerlink" title="JS数据归类提取"></a>JS数据归类提取</h2><p><a href=""></a></p>
+相应地，异步式 I/O （Asynchronous I/O）或非阻塞式 I/O （Non-blocking I/O）则针对所有 I/O 操作不采用阻塞的策略。当线程遇到 I/O 操作时，不会以阻塞的方式等待 I/O 操作的完成或数据的返回，而只是将 I/O 请求发送给操作系统，继续执行下一条语句。当操作系统完成 I/O 操作时，以事件的形式通知执行 I/O 操作的线程，线程会在特定时候处理这个事件。为了处理异步 I/O，线程必须有事件循环，不断地检查有没有未处理的事件，依次予以处理。
 
+阻塞模式下，一个线程只能处理一项任务，要想提高吞吐量必须通过多线程。而非阻塞模式下，一个线程永远在执行计算操作，这个线程所使用的 CPU 核心利用率永远是 100%，I/O 以事件的方式通知。在阻塞模式下，多线程往往能提高系统吞吐量，因为一个线程阻塞时还有其他线程在工作，多线程可以让 CPU 资源不被阻塞中的线程浪费。而在非阻塞模式下，线程不会被 I/O 阻塞，永远在利用 CPU。多线程带来的好处仅仅是在多核 CPU 的情况下利用更多的核，而Node.js的单线程也能带来同样的好处。这就是为什么Node.js 使用了单线程、非阻塞的事件编程模式。
+
+假设我们有一项工作，可以分为两个计算部分和一个 I/O 部分， I/O 部分占的时间比计算多得多（通常都是这样）。如果我们使用阻塞 I/O，那么要想获得高并发就必须开启多个线程。而使用异步式 I/O时，单线程即可胜任。
+</code></pre>
       
     </div>
     
@@ -338,13 +310,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/01/15/Induce/JavaScript/NativeJS/">原生JavaScript探索</a></p>
+        <p><span>本文标题:</span><a href="/2016/02/20/Induce/Node/NodejsIO/">Node.js异步式I/O与事件式编程</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Ji Wen 的个人博客">Ji Wen</a></p>
-        <p><span>发布时间:</span>2016年01月15日 - 13时58分</p>
-        <p><span>最后更新:</span>2016年10月09日 - 23时00分</p>
+        <p><span>发布时间:</span>2016年02月20日 - 18时29分</p>
+        <p><span>最后更新:</span>2016年10月25日 - 20时33分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/01/15/Induce/JavaScript/NativeJS/" title="原生JavaScript探索">https://Ganjs.github.io/2016/01/15/Induce/JavaScript/NativeJS/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://Ganjs.github.io/2016/01/15/Induce/JavaScript/NativeJS/　　作者: Ji Wen" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/02/20/Induce/Node/NodejsIO/" title="Node.js异步式I/O与事件式编程">https://Ganjs.github.io/2016/02/20/Induce/Node/NodejsIO/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://Ganjs.github.io/2016/02/20/Induce/Node/NodejsIO/　　作者: Ji Wen" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -357,18 +329,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2016/01/19/Induce/JavaScript/JSTip/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/02/20/Induce/CSS/animation/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          原生JS TitleTip
+          CSS3动画探秘
         
       </div>
     </a>
   
   
-    <a href="/2016/01/13/Induce/Skill/InduceIconFont/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">HTML字体之ICON-font</div>
+    <a href="/2016/01/28/Induce/Mobile/Mobile-knowledge/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">移动前端知识总结</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -379,7 +351,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Title炫舞"><span class="toc-number">1.</span> <span class="toc-text">Title炫舞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#禁用右键"><span class="toc-number">2.</span> <span class="toc-text">禁用右键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#禁用F12"><span class="toc-number">3.</span> <span class="toc-text">禁用F12</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义复制内容"><span class="toc-number">4.</span> <span class="toc-text">自定义复制内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计时器"><span class="toc-number">5.</span> <span class="toc-text">计时器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调用微博"><span class="toc-number">6.</span> <span class="toc-text">调用微博</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS数据归类提取"><span class="toc-number">7.</span> <span class="toc-text">JS数据归类提取</span></a></li></ol>
+    
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -427,7 +399,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/01/15/Induce/JavaScript/NativeJS/" data-title="原生JavaScript探索" data-url="https://Ganjs.github.io/2016/01/15/Induce/JavaScript/NativeJS/"></div>
+    <div class="ds-thread" data-thread-key="2016/02/20/Induce/Node/NodejsIO/" data-title="Node.js异步式I/O与事件式编程" data-url="https://Ganjs.github.io/2016/02/20/Induce/Node/NodejsIO/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -450,13 +422,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/01/19/Induce/JavaScript/JSTip/" title="上一篇: 原生JS TitleTip">
+            <a href="/2016/02/20/Induce/CSS/animation/" title="上一篇: CSS3动画探秘">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2016/01/13/Induce/Skill/InduceIconFont/" title="下一篇: HTML字体之ICON-font">
+            <a href="/2016/01/28/Induce/Mobile/Mobile-knowledge/" title="下一篇: 移动前端知识总结">
                 <i class="fa fa-angle-right"></i>
             </a>
         
